@@ -38,110 +38,73 @@ document.querySelectorAll('.reveal').forEach((element) => {
 });
 
 const calculator = {
-  orderValue: document.querySelector("#order-value"),
-  extraOrders: document.querySelector("#extra-orders"),
-  operationDays: document.querySelector("#operation-days"),
-
-  orderValueOutput: document.querySelector("#order-value-output"),
-  extraOrdersOutput: document.querySelector("#extra-orders-output"),
-  operationDaysOutput: document.querySelector("#operation-days-output"),
-
-  monthlySales: document.querySelector("#monthly-sales"),
-  revenueMultiple: document.querySelector("#revenue-multiple"),
-  revenueTooltipText: document.querySelector("#revenue-tooltip-text")
+  orderValue: document.querySelector('#order-value'),
+  extraOrders: document.querySelector('#extra-orders'),
+  operationDays: document.querySelector('#operation-days'),
+  orderValueOutput: document.querySelector('#order-value-output'),
+  extraOrdersOutput: document.querySelector('#extra-orders-output'),
+  operationDaysOutput: document.querySelector('#operation-days-output'),
+  monthlySales: document.querySelector('#monthly-sales'),
+  revenueMultiple: document.querySelector('#revenue-multiple')
 };
 
 const SUBSCRIPTION_PRICE = 199;
 
-const formatCurrency = (value) =>
-  new Intl.NumberFormat("en-CA", {
-    style: "currency",
-    currency: "CAD",
-    maximumFractionDigits: 0
-  }).format(value);
+const formatCurrency = (value) => new Intl.NumberFormat('en-CA', {
+  style: 'currency',
+  currency: 'CAD',
+  maximumFractionDigits: 0
+}).format(value);
 
 const updateRangeFill = (input) => {
+  if (!input) return;
   const min = Number(input.min);
   const max = Number(input.max);
   const value = Number(input.value);
   const progress = ((value - min) / (max - min)) * 100;
-
-  input.style.setProperty("--range-progress", `${progress}%`);
+  input.style.setProperty('--range-progress', `${progress}%`);
 };
 
 const updateCalculator = () => {
-  if (
-    !calculator.orderValue ||
-    !calculator.extraOrders ||
-    !calculator.operationDays
-  ) {
-    return;
-  }
+  if (!calculator.orderValue || !calculator.extraOrders || !calculator.operationDays) return;
 
   const orderValue = Number(calculator.orderValue.value);
   const extraOrders = Number(calculator.extraOrders.value);
   const operationDays = Number(calculator.operationDays.value);
-
   const monthlySales = orderValue * extraOrders * operationDays;
   const revenueMultiple = monthlySales / SUBSCRIPTION_PRICE;
 
-  calculator.orderValueOutput.textContent = formatCurrency(orderValue);
-  calculator.extraOrdersOutput.textContent = String(extraOrders);
-  calculator.operationDaysOutput.textContent = String(operationDays);
+  if (calculator.orderValueOutput) calculator.orderValueOutput.textContent = formatCurrency(orderValue);
+  if (calculator.extraOrdersOutput) calculator.extraOrdersOutput.textContent = String(extraOrders);
+  if (calculator.operationDaysOutput) calculator.operationDaysOutput.textContent = String(operationDays);
+  if (calculator.monthlySales) calculator.monthlySales.textContent = formatCurrency(monthlySales);
+  if (calculator.revenueMultiple) calculator.revenueMultiple.textContent = `${revenueMultiple.toFixed(1)}x`;
 
-  calculator.monthlySales.textContent = formatCurrency(monthlySales);
-  calculator.revenueMultiple.textContent =
-    `${revenueMultiple.toFixed(1)}x`;
-
-  calculator.revenueTooltipText.textContent =
-    `${formatCurrency(monthlySales)} estimated monthly revenue increase ÷ ` +
-    `${formatCurrency(SUBSCRIPTION_PRICE)} monthly subscription = ` +
-    `${revenueMultiple.toFixed(1)}x.`;
-
-  [
-    calculator.orderValue,
-    calculator.extraOrders,
-    calculator.operationDays
-  ].forEach(updateRangeFill);
+  [calculator.orderValue, calculator.extraOrders, calculator.operationDays].forEach(updateRangeFill);
 };
 
-document.querySelectorAll("[data-calc-input]").forEach((input) => {
-  input.addEventListener("input", updateCalculator);
+document.querySelectorAll('[data-calc-input]').forEach((input) => {
+  input.addEventListener('input', updateCalculator);
+  input.addEventListener('change', updateCalculator);
 });
 
 const scenarios = [
-  {
-    orderValue: 24,
-    extraOrders: 2,
-    operationDays: 12
-  },
-  {
-    orderValue: 30,
-    extraOrders: 4,
-    operationDays: 16
-  },
-  {
-    orderValue: 42,
-    extraOrders: 6,
-    operationDays: 20
-  }
+  { orderValue: 24, extraOrders: 2, operationDays: 12 },
+  { orderValue: 30, extraOrders: 4, operationDays: 16 },
+  { orderValue: 42, extraOrders: 6, operationDays: 20 }
 ];
-
 let scenarioIndex = 1;
 
-document.querySelectorAll("[data-scenario]").forEach((button) => {
-  button.addEventListener("click", () => {
-    scenarioIndex =
-      button.dataset.scenario === "next"
-        ? (scenarioIndex + 1) % scenarios.length
-        : (scenarioIndex - 1 + scenarios.length) % scenarios.length;
+document.querySelectorAll('[data-scenario]').forEach((button) => {
+  button.addEventListener('click', () => {
+    scenarioIndex = button.dataset.scenario === 'next'
+      ? (scenarioIndex + 1) % scenarios.length
+      : (scenarioIndex - 1 + scenarios.length) % scenarios.length;
 
     const nextScenario = scenarios[scenarioIndex];
-
     calculator.orderValue.value = String(nextScenario.orderValue);
     calculator.extraOrders.value = String(nextScenario.extraOrders);
     calculator.operationDays.value = String(nextScenario.operationDays);
-
     updateCalculator();
   });
 });

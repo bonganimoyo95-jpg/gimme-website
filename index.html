@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <script src="script.js?v=5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -232,110 +232,59 @@
       </div>
     </section>
 
-<section class="section calculator-section" id="calculator" aria-labelledby="calculator-title">
-  <div class="container calculator-shell reveal">
-    <div class="calculator-heading-row">
-      <div>
-        <p class="eyebrow">Use your course assumptions</p>
-        <h2 id="calculator-title">Revenue Impact Calculator</h2>
-      </div>
-
-      <div class="scenario-controls" aria-label="Calculator presets">
-        <button type="button" data-scenario="previous" aria-label="Previous scenario">←</button>
-        <button type="button" data-scenario="next" aria-label="Next scenario">→</button>
-      </div>
-    </div>
-
-    <div class="calculator-inputs">
-      <label class="calculator-card" for="order-value">
-        <span>Average Order Value</span>
-        <output id="order-value-output" for="order-value">$30</output>
-        <input
-          id="order-value"
-          type="range"
-          min="10"
-          max="80"
-          step="1"
-          value="30"
-          data-calc-input
-        />
-      </label>
-
-      <label class="calculator-card" for="extra-orders">
-        <span>Extra Orders Per Operating Day</span>
-        <output id="extra-orders-output" for="extra-orders">4</output>
-        <input
-          id="extra-orders"
-          type="range"
-          min="1"
-          max="12"
-          step="1"
-          value="4"
-          data-calc-input
-        />
-      </label>
-
-      <label class="calculator-card" for="operation-days">
-        <span>Days in Operation Per Month</span>
-        <output id="operation-days-output" for="operation-days">16</output>
-        <input
-          id="operation-days"
-          type="range"
-          min="1"
-          max="31"
-          step="1"
-          value="16"
-          data-calc-input
-        />
-      </label>
-    </div>
-
-    <div class="calculator-result" aria-live="polite">
-      <p>Estimated monthly revenue increase with Gimme.</p>
-      <strong id="monthly-sales">$1,920</strong>
-
-      <div class="result-stats result-stats-single">
-        <div
-          class="revenue-multiple-card"
-          tabindex="0"
-          aria-describedby="revenue-multiple-tooltip"
-        >
-          <span class="stat-icon">
-            <svg aria-hidden="true">
-              <use href="#icon-revenue"></use>
-            </svg>
-          </span>
-
-          <span class="revenue-multiple-content">
-            <small>
-              Revenue Multiple
-              <span class="info-badge" aria-hidden="true">?</span>
-            </small>
-            <b id="revenue-multiple">9.6x</b>
-          </span>
-
-          <div
-            class="revenue-tooltip"
-            id="revenue-multiple-tooltip"
-            role="tooltip"
-          >
-            <strong>How this is calculated</strong>
-            <span id="revenue-tooltip-text">
-              $1,920 estimated monthly revenue increase ÷ $199 monthly
-              subscription = 9.6x.
-            </span>
+    <section class="section calculator-section" id="calculator" aria-labelledby="calculator-title">
+      <div class="container calculator-shell reveal">
+        <div class="calculator-heading-row">
+          <div>
+            <p class="eyebrow">Use your course assumptions</p>
+            <h2 id="calculator-title">Revenue Impact Calculator</h2>
+          </div>
+          <div class="scenario-controls" aria-label="Calculator presets">
+            <button type="button" data-scenario="previous" aria-label="Previous scenario">←</button>
+            <button type="button" data-scenario="next" aria-label="Next scenario">→</button>
           </div>
         </div>
-      </div>
-    </div>
 
-    <p class="calculator-note">
-      This calculator is for illustrative purposes only. Actual results depend
-      on course traffic, average order value, golfer adoption, days in
-      operation, service availability, and course operations.
-    </p>
-  </div>
-</section>
+        <div class="calculator-inputs">
+          <label class="calculator-card" for="order-value">
+            <span>Average Order Value</span>
+            <output id="order-value-output" for="order-value">$30</output>
+            <input id="order-value" type="range" min="10" max="80" step="1" value="30" data-calc-input />
+          </label>
+          <label class="calculator-card" for="extra-orders">
+            <span>Extra Orders Per Operating Day</span>
+            <output id="extra-orders-output" for="extra-orders">4</output>
+            <input id="extra-orders" type="range" min="1" max="12" step="1" value="4" data-calc-input />
+          </label>
+          <label class="calculator-card" for="operation-days">
+            <span>Days in Operation Per Month</span>
+            <output id="operation-days-output" for="operation-days">16</output>
+            <input id="operation-days" type="range" min="1" max="31" step="1" value="16" data-calc-input />
+          </label>
+        </div>
+
+        <div class="calculator-result" aria-live="polite">
+          <p>Estimated monthly revenue increase with Gimme.</p>
+          <strong id="monthly-sales">$1,920</strong>
+
+          <div class="result-stats result-stats-single">
+            <div class="revenue-multiple-card" tabindex="0" aria-describedby="revenue-multiple-tooltip">
+              <span class="stat-icon"><svg aria-hidden="true"><use href="#icon-revenue" /></svg></span>
+              <span class="revenue-multiple-content">
+                <small>Revenue Multiple <span class="info-badge" aria-hidden="true">?</span></small>
+                <b id="revenue-multiple">9.6x</b>
+              </span>
+              <div class="revenue-tooltip" id="revenue-multiple-tooltip" role="tooltip">
+                <strong>What this means</strong>
+                <span>Compares the estimated monthly revenue increase with Gimme’s $199 monthly subscription fee. It is a revenue comparison, not a profit estimate.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="calculator-note">This calculator is for illustrative purposes only. Actual results depend on course traffic, average order value, golfer adoption, days in operation, service availability, and course operations.</p>
+      </div>
+    </section>
 
     <section class="section insights" id="insights">
       <div class="container insight-grid">
